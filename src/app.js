@@ -6,8 +6,20 @@ app.use("/hello", (req, res) => {
   res.send("Hello hello hello");
 });
 
-app.use("/test", (req, res) => {
+app.get("/test", (req, res) => {
   res.send("Hello hello server");
+});
+
+app.post("/test", (req, res) => {
+  res.send("Data saved to database");
+});
+
+app.delete("/test", (req, res) => {
+  res.send("Data deleted successfully");
+});
+
+app.use("/", (req, res) => {
+  res.send("General hello");
 });
 
 app.listen(3000, () => {
