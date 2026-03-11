@@ -10,6 +10,11 @@ app.get("/test", (req, res) => {
   res.send("Hello hello server");
 });
 
+app.post("/test/:userId", (req, res) => {
+  console.log(req.params);
+  res.send({ id: req.params, firstname: "Priya", lastname: "sharma" });
+});
+
 app.post("/test", (req, res) => {
   res.send("Data saved to database");
 });
