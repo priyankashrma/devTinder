@@ -2,31 +2,37 @@ const express = require("express");
 
 const app = express();
 
-app.use("/hello", (req, res) => {
-  res.send("Hello hello hello");
+app.use("/user", (req, res, next) => {
+  if (req.query.token) {
+    const token = req.query.token;
+    if (token === "abc") {
+      next();
+    } else {
+      res.status(401).send("Unauthorized request");
+    }
+  } else {
+    res.status(401).send("Unauthorized request");
+  }
 });
 
-app.get("/test", (req, res) => {
-  res.send("Hello hello server");
+app.use("/user/getAllData", (req, res, next) => {
+  res.send("Get All Data");
 });
 
-app.post("/test/:userId", (req, res) => {
-  console.log(req.params);
-  res.send({ id: req.params, firstname: "Priya", lastname: "sharma" });
+app.get("/user/postAllData", (req, res, next) => {
+  res.send("Post All Data");
 });
 
-app.post("/test", (req, res) => {
-  res.send("Data saved to database");
+app.use("/", (err, req, res, next) => {
+  if (err) {
+    res.status(500).send("Something went wrong");
+  }
 });
 
-app.delete("/test", (req, res) => {
-  res.send("Data deleted successfully");
+app.use("/test", (req, res, next) => {
+  res.send("Just Testing");
 });
 
-app.use("/", (req, res) => {
-  res.send("General hello");
-});
-
-app.listen(3000, () => {
+app.listen(7777, () => {
   console.log("server is successfully running on port 3000");
 });
